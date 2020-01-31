@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context="com.ayurmanaha.ayurvedaquiz.QuizActivity"
+    tools:context="com.ayurmanaha.ayurvedaquiz.activity.QuizActivity"
     tools:ignore="contentDescription">
 
     <TextView
@@ -50,7 +50,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5"
-        app:layout_constraintVertical_chainPacked="true"
         app:srcCompat="@drawable/ayurmanaha_transparent_logo" />
 
     <TextView

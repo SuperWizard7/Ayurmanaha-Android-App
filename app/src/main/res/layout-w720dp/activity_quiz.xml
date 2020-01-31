@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context="com.ayurmanaha.ayurvedaquiz.QuizActivity">
+    tools:context="com.ayurmanaha.ayurvedaquiz.activity.QuizActivity">
 
     <TextView
         android:id="@+id/text_view_question_count"
@@ -49,8 +49,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ayurmanaha_transparent_logo"
-        app:layout_constraintVertical_bias="0.5"
-        app:layout_constraintVertical_chainPacked="true" />
+        app:layout_constraintVertical_bias="0.5"/>
 
     <TextView
         android:id="@+id/title"
@@ -72,7 +71,7 @@
         android:id="@+id/answer_options"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="left|center_vertical"
+        android:gravity="start|center_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
