@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_img_portrait"
+    tools:context="com.ayurmanaha.ayurvedaquiz.activity.QuizActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="25dp"
+            android:background="#66FFFFFF"
+            android:contentDescription="@string/ayur_logo"
+            app:srcCompat="@drawable/ayurmanaha_transparent_logo" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="25dp"
+            android:background="#73000000"
+            android:fontFamily="@font/alegreya_sans_sc"
+            android:maxWidth="230dp"
+            android:text="@string/headingString"
+            android:textAlignment="center"
+            android:textColor="#FF9800"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_view_question_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="25dp"
+            android:background="#66000000"
+            android:fontFamily="sans-serif-medium"
+            android:freezesText="true"
+            android:text="Question: 1/x"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/text_view_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="25dp"
+            android:background="#66FFFFFF"
+            android:fontFamily="@font/droid_sans"
+            android:freezesText="true"
+            android:text="Here will be the question text"
+            android:textAlignment="center"
+            android:textColor="#0006FF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/answer_options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="35dp"
+            android:gravity="start">
+
+            <RadioButton
+                android:id="@+id/option1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:fontFamily="@font/source_sans_pro_semibold"
+                android:freezesText="true"
+                android:gravity="start|center_vertical"
+                android:text="Option 1"
+                android:textColor="#0006FF"
+                android:textSize="20sp"
+                tools:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/option2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:fontFamily="@font/source_sans_pro_semibold"
+                android:freezesText="true"
+                android:gravity="start|center_vertical"
+                android:text="Option 2"
+                android:textColor="#0006FF"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/option3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:fontFamily="@font/source_sans_pro_semibold"
+                android:freezesText="true"
+                android:gravity="start|center_vertical"
+                android:text="Option 3"
+                android:textColor="#0006FF"
+                android:textSize="20sp" />
+        </RadioGroup>
+
+        <LinearLayout
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom|center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_back"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FF0000"
+                android:freezesText="true"
+                android:text="@string/backButtonString"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/button_next"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:background="#08DC08"
+                android:freezesText="true"
+                android:text="@string/nextButtonString"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

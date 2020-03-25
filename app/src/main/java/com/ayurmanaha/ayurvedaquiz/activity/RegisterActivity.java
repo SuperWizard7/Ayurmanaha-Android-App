@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.Request.Method;
 import com.android.volley.VolleyError;
@@ -24,6 +26,7 @@ import com.ayurmanaha.ayurvedaquiz.helper.SessionManager;
 public class RegisterActivity extends Activity {
     private static final String TAG = RegisterActivity.class.getSimpleName();
     private EditText inputFullName;
+    private EditText inputPhoneNo;
     private EditText inputEmail;
     private EditText inputPassword;
     private ProgressDialog pDialog;
@@ -33,8 +36,11 @@ public class RegisterActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        TextView tAndC = findViewById(R.id.tAndC_view);
+        tAndC.setMovementMethod(LinkMovementMethod.getInstance());
         inputFullName = findViewById(R.id.name);
         inputEmail = findViewById(R.id.email);
+        inputPhoneNo = findViewById(R.id.phno_input);
         inputPassword = findViewById(R.id.password);
         Button btnRegister = findViewById(R.id.btnRegister);
         Button btnLinkToLogin = findViewById(R.id.btnLinkToLoginScreen);
@@ -56,30 +62,31 @@ public class RegisterActivity extends Activity {
 
         // Register Button Click event
         btnRegister.setOnClickListener((View view) -> {
-                String name = inputFullName.getText().toString().trim();
-                String email = inputEmail.getText().toString().trim();
-                String password = inputPassword.getText().toString().trim();
+            String name = inputFullName.getText().toString().trim();
+            String phoneNo = inputPhoneNo.getText().toString().trim();
+            String email = inputEmail.getText().toString().trim();
+            String password = inputPassword.getText().toString().trim();
 
-                if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-                    registerUser(name, email, password);
-                } else {
-                    Toast.makeText(this,"Please enter your details!", Toast.LENGTH_LONG).show();
-                }
-            });
+            if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && phoneNo.length()==10) {
+                registerUser(name, phoneNo, email, password);
+            } else {
+                Toast.makeText(this,"Please enter all your details correctly!", Toast.LENGTH_LONG).show();
+            }
+        });
 
         // Link to Login Screen
         btnLinkToLogin.setOnClickListener((View v)->{
-                Intent i = new Intent(RegisterActivity.this,LoginActivity.class);
-                startActivity(i);
-                finish();
-            });
+            Intent i = new Intent(RegisterActivity.this,LoginActivity.class);
+            startActivity(i);
+            finish();
+        });
     }
 
     /**
      * Function to store user in MySQL database will post params(tag, name,
      * email, password) to register url
      * */
-    private void registerUser(final String name, final String email, final String password) {
+    private void registerUser(final String name, final String phno, final String email, final String password) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 
@@ -122,6 +129,7 @@ public class RegisterActivity extends Activity {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<>();
                 params.put("name", name);
+                params.put("phno",phno);
                 params.put("email", email);
                 params.put("password", password);
                 return params;

@@ -1,0 +1,186 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "aced620adbe304df4b61919d4c88afec",
+    "entities": [
+      {
+        "tableName": "questions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `question` TEXT NOT NULL, `option1` TEXT NOT NULL, `option2` TEXT NOT NULL, `option3` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "question",
+            "columnName": "question",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "option1",
+            "columnName": "option1",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "option2",
+            "columnName": "option2",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "option3",
+            "columnName": "option3",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_questions_id",
+            "unique": false,
+            "columnNames": [
+              "id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_questions_id` ON `${TABLE_NAME}` (`id`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "scores",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userID` TEXT NOT NULL, `pScore` INTEGER NOT NULL, `kScore` INTEGER NOT NULL, `vScore` INTEGER NOT NULL, `timeUpdated` TEXT NOT NULL, PRIMARY KEY(`userID`))",
+        "fields": [
+          {
+            "fieldPath": "userid",
+            "columnName": "userID",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pScore",
+            "columnName": "pScore",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kScore",
+            "columnName": "kScore",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vScore",
+            "columnName": "vScore",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timeUpdated",
+            "columnName": "timeUpdated",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "userID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_scores_userID",
+            "unique": false,
+            "columnNames": [
+              "userID"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_scores_userID` ON `${TABLE_NAME}` (`userID`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "selected_answers",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`questionID` INTEGER NOT NULL, `userID` TEXT NOT NULL, `selectedAns` INTEGER NOT NULL, PRIMARY KEY(`questionID`, `userID`), FOREIGN KEY(`questionID`) REFERENCES `questions`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`userID`) REFERENCES `scores`(`userID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "qId",
+            "columnName": "questionID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "userID",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "selectedAns",
+            "columnName": "selectedAns",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "questionID",
+            "userID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_selected_answers_userID_questionID",
+            "unique": true,
+            "columnNames": [
+              "userID",
+              "questionID"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_selected_answers_userID_questionID` ON `${TABLE_NAME}` (`userID`, `questionID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "questions",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "questionID"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "scores",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "userID"
+            ],
+            "referencedColumns": [
+              "userID"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'aced620adbe304df4b61919d4c88afec')"
+    ]
+  }
+}

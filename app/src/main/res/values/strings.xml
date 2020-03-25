@@ -1,25 +1,29 @@
 <resources>
-    <string name="app_name">Ayurveda Quiz</string>
-    <string name="option_a">Option 1</string>
-    <string name="option_b">Option 2</string>
-    <string name="option_c">Option 3</string>
-    <string name="questionNoString">Question: 1/x</string>
-    <string name="headingString">Prakruthi Questionnaire</string>
-    <string name="nextButtonString">Next</string>
-    <string name="backButtonString">Back</string>
-    <string name="startQuizString">Start Quiz</string>
-    <string name="btn_logout">Logout</string>
-    <string name="hint_email">Email</string>
-    <string name="hint_name">Full name</string>
-    <string name="passwordStr">Password</string>
-    <string name="hello">Hello</string>
-    <string name="btn_login">LOGIN</string>
-    <string name="pScore_str">Pittha Score: </string>
-    <string name="vScore_str">Vatha Score: </string>
-    <string name="kScore_str">Kapha Score: </string>
-    <string name="btn_register">REGISTER</string>
-    <string name="btn_link_to_register">Not a member? Sign up now.</string>
-    <string name="btn_link_to_login">Already registered? Log me in.</string>
-    <string name="current_score_label">Your current score is</string>
-    <string name="overwriteWarningStr">(If you have already taken the quiz, then taking it again will overwrite previous result)</string>
+    <string name="app_name" translatable="false">Prakruthi Questionnaire</string>
+    <string name="headingString" translatable="false">Prakruthi Questionnaire</string>
+    <string name="nextButtonString" translatable="false">Next</string>
+    <string name="backButtonString" translatable="false">Back</string>
+    <string name="startQuizString" translatable="false">Start</string>
+    <string name="btn_logout" translatable="false">Logout</string>
+    <string name="hint_email" translatable="false">Email</string>
+    <string name="hint_name" translatable="false">Full name</string>
+    <string name="hint_phno" translatable="false">Phone number</string>
+    <string name="passwordStr" translatable="false">Password</string>
+    <string name="show_pwd">Show Password</string>
+    <string name="hello" translatable="false">Hello</string>
+    <string name="btn_login" translatable="false">LOGIN</string>
+    <string name="pScore_str" translatable="false">Pittha Score: </string>
+    <string name="vScore_str" translatable="false">Vatha Score: </string>
+    <string name="kScore_str" translatable="false">Kapha Score: </string>
+    <string name="btn_register" translatable="false">REGISTER</string>
+    <string name="btn_link_to_register" translatable="false">Not a member? Sign up now.</string>
+    <string name="tAndC">By clicking register, you agree to the <a href = "https://www.ayurmanaha.com/appdisclaimer">Terms and Conditions</a>
+        of Ayurmanaha Chikitsalaya</string>
+    <string name="btn_link_to_login" translatable="false">Already registered? Log me in.</string>
+    <string name="current_score_label" translatable="false">Your current score is</string>
+    <string name="no_score_label">Please take the questionnaire to update the score.</string>
+    <string name="question_text" translatable="false">Question: %1$d/%2$d</string>
+    <string name="next" translatable="false">Next</string>
+    <string name="finish" translatable="false">Finish</string>
+    <string name="ayur_logo">Ayurmanaha Logo</string>
 </resources>

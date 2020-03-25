@@ -2,181 +2,193 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relativeLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:padding="16dp"
+    android:background="@drawable/tulsi_background_unblurred"
     tools:context="com.ayurmanaha.ayurvedaquiz.activity.MainActivity">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="20dp"
-        android:text="@string/headingString"
-        android:textAlignment="center"
-        android:textColor="#269C2B"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/lbl_hello"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        tools:layout_conversion_wrapHeight="97"
-        tools:layout_conversion_wrapWidth="761" />
-
-    <Button
-        android:id="@+id/buttonStartQuiz"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:padding="15dp"
-        android:text="@string/startQuizString"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnLogout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:layout_conversion_wrapHeight="96"
-        tools:layout_conversion_wrapWidth="207" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ayurmanaha_transparent_logo" />
-
-    <TextView
-        android:id="@+id/lbl_hello"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/averia_libre_light"
-        android:text="@string/hello"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@id/name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title" />
-
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textColor="#ade9bd"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lbl_hello" />
-
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/buttonStartQuiz"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/name">
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
+            android:adjustViewBounds="false"
+            android:background="#8CFFFFFF"
+            android:contentDescription="@string/ayur_logo"
+            android:src="@drawable/ayurmanaha_transparent_logo" />
 
         <TextView
-            android:id="@+id/current_score_label"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/current_score_label"
-            android:textSize="18sp" />
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/alegreya_sans_sc"
+            android:text="@string/headingString"
+            android:textAlignment="center"
+            android:textColor="#FFE601"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="18dp"
+            android:fontFamily="@font/averia_libre_light"
+            android:text="@string/hello"
+            android:textColor="#00AFFF"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="18dp"
+            android:fontFamily="@font/averia_libre_light"
+            android:padding="10dp"
+            android:textColor="#00AFFF"
+            android:textSize="24sp" />
 
         <LinearLayout
-            android:id="@+id/linearLayoutV"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="26dp"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/vatha_lbl"
+                android:id="@+id/current_score_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/vScore_str"
-                android:textSize="14sp" />
+                android:fontFamily="@font/assistant_semibold"
+                android:text="@string/current_score_label"
+                android:textColor="#FF9800"
+                android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/vatha_score"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp" />
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/vatha_lbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/assistant_semibold"
+                    android:text="@string/vScore_str"
+                    android:textColor="#FF9800"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/vatha_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/assistant_semibold"
+                    android:textColor="#FF9800"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/pittha_lbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/assistant_semibold"
+                    android:text="@string/pScore_str"
+                    android:textColor="#FF9800"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/pittha_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/assistant_semibold"
+                    android:textColor="#FF9800"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/kapha_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/assistant_semibold"
+                    android:text="@string/kScore_str"
+                    android:textColor="#FF9800"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/kapha_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/assistant_semibold"
+                    android:textColor="#FF9800"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayoutP"
-            android:layout_width="wrap_content"
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/pittha_lbl"
+            <Button
+                android:id="@+id/buttonStartQuiz"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/pScore_str"
-                android:textSize="14sp" />
-            <TextView
-                android:id="@+id/pittha_score"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp" />
+                android:background="#59FFFFFF"
+                android:padding="10dp"
+                android:text="@string/startQuizString"
+                android:textColor="#ffffff"
+                android:textSize="16sp" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayoutK"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/kapha_lbl"
+            <Button
+                android:id="@+id/btnLogout"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/kScore_str"
-                android:textSize="14sp" />
-            <TextView
-                android:id="@+id/kapha_score"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp" />
+                android:layout_marginStart="75dp"
+                android:background="#59FFFFFF"
+                android:padding="10dp"
+                android:text="@string/btn_logout"
+                android:textAllCaps="true"
+                android:textColor="#ffffff"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_logout"
-        android:textAllCaps="true"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonStartQuiz" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

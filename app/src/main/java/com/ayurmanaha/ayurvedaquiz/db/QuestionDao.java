@@ -15,7 +15,7 @@ public interface QuestionDao {
     void insert(List<Question> questions);
 
     @Query("SELECT * FROM questions")
-    LiveData<List<Question>> getAllQuestions();
+    List<Question> getAllQuestions();
 
     @Query("SELECT * FROM questions WHERE id=:qID")
     Question getQuestion(int qID);

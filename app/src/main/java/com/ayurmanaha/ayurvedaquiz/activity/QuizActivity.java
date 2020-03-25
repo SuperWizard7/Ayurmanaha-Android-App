@@ -34,12 +34,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class QuizActivity extends AppCompatActivity {
-//    private static final String KEY_QUESTION_COUNT = "keyQuestionCount";
-//    private static final String KEY_SELECTED_OPTION = "keySelectedOption";
-//    private SharedPreferences preferences;
-//    private String sharedPrefFile = "com.ayurmanaha.ayurvedaquiz";
     private static final String TAG = RegisterActivity.class.getSimpleName();
     private QuestionnaireViewModel questionnaireViewModel;
     private SessionManager session;
@@ -60,6 +57,7 @@ public class QuizActivity extends AppCompatActivity {
     private int selectedOption;
     private Question currentQuestion;
     private String uid;
+    private List<Integer> allSelectedAnswers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,58 +83,86 @@ public class QuizActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-//        preferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
-//        currQuestionNo = preferences.getInt(KEY_QUESTION_COUNT,0);
-//        selectedOption = preferences.getInt(KEY_SELECTED_OPTION,-1);
         uid = session.getUserID();
+
         //add error code for if uid is null
-        currQuestionNo = session.getQuestionCount();
+        currQuestionNo = session.getCurrentQuestionNo();
         selectedOption = session.getSelectedOption();
         questionnaireViewModel = ViewModelProviders.of(this).get(QuestionnaireViewModel.class);
-        questionnaireViewModel.getAllQuestions().observe(this, (List<Question> questions) -> {
-            questionList = questions;
-            questionCount = questionList.size();
-        });
+        questionList = questionnaireViewModel.getAllQuestions();
+        questionCount = questionList.size();
         showNextQuestion();
 
         buttonConfirmNext.setOnClickListener((View v) -> {
-            if (rb1.isChecked() || rb2.isChecked() || rb3.isChecked()) {
-                recordAnswer();
-                currQuestionNo++;
-                showNextQuestion();
-            } else {
-                Toast.makeText(QuizActivity.this, "Please select an answer.", Toast.LENGTH_SHORT).show();
+            if(!session.isQuizFinished())
+            {
+                if (rb1.isChecked() || rb2.isChecked() || rb3.isChecked()) {
+                    recordAnswer();
+                    currQuestionNo++;
+                    try{
+                        Log.i(TAG,"selOption: "+questionnaireViewModel.getSelAns(uid, (currQuestionNo+1)));
+                        selectedOption = questionnaireViewModel.getSelAns(uid, (currQuestionNo+1));
+                        switch (selectedOption) {
+                            case 0:
+                                rbGroup.check(R.id.option1);
+                                break;
+                            case 1:
+                                rbGroup.check(R.id.option2);
+                                break;
+                            case 2:
+                                rbGroup.check(R.id.option3);
+                                break;
+                            case -1:
+                                rbGroup.clearCheck();
+                                break;
+                        }
+                    }
+                    catch(ExecutionException|InterruptedException e)
+                    {
+                        e.getMessage();
+                    }
+                    showNextQuestion();
+                } else {
+                    Toast.makeText(QuizActivity.this, "Please select an answer.", Toast.LENGTH_SHORT).show();
+                }
+            }
+            else {
+                for (int i = 0; i < rbGroup.getChildCount(); i++) {
+                    rbGroup.getChildAt(i).setEnabled(false);
+                }
+                recordFinalScore();
             }
         });
 
         buttonBack.setOnClickListener((View v) -> {
-            if (rb1.isChecked() || rb2.isChecked() || rb3.isChecked()) {
-                recordAnswer();
+            if(!session.isQuizFinished()) {
+                if (rb1.isChecked() || rb2.isChecked() || rb3.isChecked()) {
+                    recordAnswer();
+                }
+                if (currQuestionNo > 0)
+                    currQuestionNo--;
+                showPreviousQuestion();
             }
-            if (currQuestionNo > 0)
-                currQuestionNo--;
-            showPreviousQuestion();
         });
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (rb1.isChecked()) {
-            selectedOption = 0;
-        } else if (rb2.isChecked()) {
-            selectedOption = 1;
-        } else if (rb3.isChecked()) {
-            selectedOption = 2;
-        } else {
-            selectedOption = -1;
+        if(!session.isQuizFinished())
+        {
+            if (rb1.isChecked()) {
+                selectedOption = 0;
+            } else if (rb2.isChecked()) {
+                selectedOption = 1;
+            } else if (rb3.isChecked()) {
+                selectedOption = 2;
+            } else {
+                selectedOption = -1;
+            }
+            session.setCurrentQuestionNo(currQuestionNo);
+            session.setSelectedOption(selectedOption);
         }
-//        SharedPreferences.Editor preferencesEditor = preferences.edit();
-//        preferencesEditor.putInt(KEY_QUESTION_COUNT, currQuestionNo);
-//        preferencesEditor.putInt(KEY_SELECTED_OPTION, selectedOption);
-//        preferencesEditor.apply();
-        session.setQuestionCount(currQuestionNo);
-        session.setSelectedOption(selectedOption);
     }
 
     private void showNextQuestion() {
@@ -163,12 +189,15 @@ public class QuizActivity extends AppCompatActivity {
             rb1.setText(currentQuestion.getOption1());
             rb2.setText(currentQuestion.getOption2());
             rb3.setText(currentQuestion.getOption3());
-            textViewQuestionCount.setText("Question: " + (currQuestionNo + 1) + "/" + questionCount);
-            //currQuestionNo++;
-            //answered = false;
-            //buttonConfirmNext.setText("Confirm");
+            textViewQuestionCount.setText(getString(R.string.question_text,(currQuestionNo+1),questionCount));
         } else {
-            sendScoreToServer();
+            currentQuestion = questionList.get(questionCount-1);
+            textViewQuestion.setText(currentQuestion.getQuestion());
+            rb1.setText(currentQuestion.getOption1());
+            rb2.setText(currentQuestion.getOption2());
+            rb3.setText(currentQuestion.getOption3());
+            textViewQuestionCount.setText(getString(R.string.question_text,questionCount,questionCount));
+            recordFinalScore();
         }
     }
 
@@ -182,41 +211,47 @@ public class QuizActivity extends AppCompatActivity {
         rb1.setText(currentQuestion.getOption1());
         rb2.setText(currentQuestion.getOption2());
         rb3.setText(currentQuestion.getOption3());
-        textViewQuestionCount.setText("Question: " + (currQuestionNo + 1) + "/" + questionCount);
-
-        selectedOption = questionnaireViewModel.getSelAns(uid, currQuestionNo);
-        switch (selectedOption) {
-            case 0:
-                rbGroup.check(R.id.option1);
-                break;
-            case 1:
-                rbGroup.check(R.id.option2);
-                break;
-            case 2:
-                rbGroup.check(R.id.option3);
-                break;
-            case -1:
-                rbGroup.clearCheck();
-                break;
+        textViewQuestionCount.setText(getString(R.string.question_text,(currQuestionNo+1), questionCount));
+        try{
+            Log.i(TAG,"selOption: "+questionnaireViewModel.getSelAns(uid, (currQuestionNo+1)));
+            selectedOption = questionnaireViewModel.getSelAns(uid, (currQuestionNo+1));
+            switch (selectedOption) {
+                case 0:
+                    rbGroup.check(R.id.option1);
+                    break;
+                case 1:
+                    rbGroup.check(R.id.option2);
+                    break;
+                case 2:
+                    rbGroup.check(R.id.option3);
+                    break;
+                case -1:
+                    rbGroup.clearCheck();
+                    break;
+            }
+        }
+        catch(ExecutionException|InterruptedException e)
+        {
+            e.getMessage();
         }
     }
 
     private void recordAnswer() {
         RadioButton rbSelected = findViewById(rbGroup.getCheckedRadioButtonId());
         selectedOption = rbGroup.indexOfChild(rbSelected);
-        SelectedAnswers selAns = new SelectedAnswers(currQuestionNo, uid, selectedOption);
+        SelectedAnswers selAns = new SelectedAnswers((currQuestionNo+1), uid, selectedOption);
+        Log.i(TAG,"qno: "+(currQuestionNo+1)+" uid: "+uid+" selected: "+selectedOption);
         questionnaireViewModel.insertSelAns(selAns);
         if (currQuestionNo < questionCount) {
-            buttonConfirmNext.setText("Next");
+            buttonConfirmNext.setText(getString(R.string.next));
         } else {
-            buttonConfirmNext.setText("Finish");
+            buttonConfirmNext.setText(getString(R.string.finish));
         }
     }
 
     private void finishQuiz() {
-//        Intent resultIntent = new Intent();
-//        setResult(RESULT_OK, resultIntent);
         session.setQuizStarted(false);
+        session.setQuizFinished(true);
         session.clearQuizSession();
 
         // Go back to main activity
@@ -225,30 +260,52 @@ public class QuizActivity extends AppCompatActivity {
         finish();
     }
 
-    private void sendScoreToServer() {
-        String tag_send_score = "send_score";
-        int p = 0, k = 0, v = 0;
-        List<Integer> allSelectedAnswers = questionnaireViewModel.getAllUserSelAns(uid);
-        for (Integer i : allSelectedAnswers) {
-            switch (i) {
-                case 0:
-                    v++;
-                    break;
-                case 1:
-                    p++;
-                    break;
-                case 2:
-                    k++;
-                    break;
+    private void recordFinalScore() {
+        if(!session.isQuizFinished()){
+            int p = 0, k = 0, v = 0;
+            try{
+                allSelectedAnswers = questionnaireViewModel.getAllUserSelAns(uid);
+            }
+            catch(ExecutionException|InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+            for (Integer i : allSelectedAnswers) {
+                switch (i) {
+                    case 0:
+                        v++;
+                        break;
+                    case 1:
+                        p++;
+                        break;
+                    case 2:
+                        k++;
+                        break;
+                }
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyyHHmmss", Locale.getDefault());
+            String currentDateTime = sdf.format(new Date());
+            Score score = new Score(uid, p, k, v, currentDateTime);
+            questionnaireViewModel.insertScore(score);
+            questionnaireViewModel.deleteSelectedAns(uid);
+            session.setQuizFinished(true);
+            sendScoreToServer(score);
+        }
+        else
+        {
+            try{
+                sendScoreToServer(questionnaireViewModel.getScore(uid));
+            }
+            catch(InterruptedException|ExecutionException e){
+                e.printStackTrace();
             }
         }
-        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyyHHmmss", Locale.getDefault());
-        String currentDateTime = sdf.format(new Date());
-        Score score = new Score(uid, p, k, v, currentDateTime);
-        questionnaireViewModel.insertScore(score);
-
         pDialog.setMessage("Finishing ...");
         showDialog();
+    }
+
+    private void sendScoreToServer(Score score){
+        String tag_send_score = "send_score";
 
         StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.URL_SCORE_UPDATE, (String response) -> {
             Log.d(TAG, "Sending score response: " + response);
@@ -307,7 +364,13 @@ public class QuizActivity extends AppCompatActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Leave Quiz")
                 .setMessage("Are you sure you want to leave the quiz? All progress will be lost.")
-                .setPositiveButton("Yes", (DialogInterface dialog, int which) -> finishQuiz())
+                .setPositiveButton("Yes", (DialogInterface dialog, int which) -> {
+                    session.setQuizFinished(false);
+                    session.setQuizStarted(false);
+                    //session.clearQuizSession();
+                    questionnaireViewModel.deleteSelectedAns(uid);
+                    finishQuiz();
+                })
                 .setNegativeButton("No", null).show();
     }
 }

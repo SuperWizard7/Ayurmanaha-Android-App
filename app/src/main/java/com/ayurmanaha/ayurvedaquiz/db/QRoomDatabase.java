@@ -6,6 +6,8 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
+
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,15 +48,16 @@ public abstract class QRoomDatabase extends RoomDatabase {
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private QuestionDao questionDao;
         private List<Question> questions;
-
+        private static final String TAG = QRoomDatabase.class.getSimpleName();
         private PopulateDbAsyncTask(QRoomDatabase db,List<Question> qList) {
             questionDao = db.questionDao();
-            questions = qList;
+            questions = qList; 
         }
 
         @Override
         protected Void doInBackground(Void... params) {
             questionDao.insert(questions);
+            Log.i(TAG,"Added questions to db");
             return null;
         }
     }

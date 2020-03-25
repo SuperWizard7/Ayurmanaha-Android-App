@@ -2,7 +2,6 @@ package com.ayurmanaha.ayurvedaquiz.helper;
 
 import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import android.util.Log;
 import com.ayurmanaha.ayurvedaquiz.db.QRepository;
 import com.ayurmanaha.ayurvedaquiz.db.Question;
@@ -10,18 +9,24 @@ import com.ayurmanaha.ayurvedaquiz.db.Score;
 import com.ayurmanaha.ayurvedaquiz.db.SelectedAnswers;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class QuestionnaireViewModel extends AndroidViewModel {
 
     private String TAG = this.getClass().getSimpleName();
     private QRepository repository;
-    private LiveData<List<Question>> allQuestions;
-    //private long scoreInsertID = -1;
+    private List<Question> allQuestions;
 
     public QuestionnaireViewModel(Application application) {
         super(application);
         repository = new QRepository(application);
-        allQuestions = repository.getAllQuestions();
+        try{
+            allQuestions = repository.getAllQuestions();
+        }
+        catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            Log.i(TAG,"No questions found.");
+        }
     }
 
     public void insertScore(Score score) {
@@ -32,21 +37,25 @@ public class QuestionnaireViewModel extends AndroidViewModel {
         repository.insertSelAns(selAns);
     }
 
-    public Score getScore(String uId) {
+    public Score getScore(String uId) throws ExecutionException, InterruptedException {
         return repository.getScore(uId);
     }
 
-    public Integer getSelAns(String uId, int qId) {
-        return repository.getSelAns(uId, qId);
+    public Integer getSelAns(String uId, int qId) throws ExecutionException, InterruptedException {
+        return QRepository.getSelAns(uId, qId);
     }
 
-    public List<Integer> getAllUserSelAns(String uId)
+    public List<Integer> getAllUserSelAns(String uId) throws ExecutionException, InterruptedException
     {
         return repository.getAllUserSelAns(uId);
     }
 
-    public LiveData<List<Question>> getAllQuestions() {
+    public List<Question> getAllQuestions() {
         return allQuestions;
+    }
+
+    public void deleteSelectedAns(String uid){
+        repository.deleteSelectedAnswer(uid);
     }
 
     @Override

@@ -37,7 +37,7 @@ public class Score
     }
 
     @NonNull
-    private String getUserid() {
+    public String getUserid() {
         return userid;
     }
 

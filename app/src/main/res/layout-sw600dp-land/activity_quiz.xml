@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_img_land"
+    tools:context="com.ayurmanaha.ayurvedaquiz.activity.QuizActivity">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="60dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_marginBottom="50dp"
+                android:background="#59FFFFFF"
+                android:contentDescription="@string/ayur_logo"
+                android:src="@drawable/ayurmanaha_transparent_logo" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:background="#73000000"
+                android:ellipsize="end"
+                android:fontFamily="@font/alegreya_sans_sc"
+                android:maxWidth="280dp"
+                android:text="@string/headingString"
+                android:textAlignment="center"
+                android:textColor="#FF9800"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/text_view_question_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="45dp"
+                android:background="#66000000"
+                android:fontFamily="sans-serif-medium"
+                android:freezesText="true"
+                android:text="Question: 1/x"
+                android:textAlignment="center"
+                android:textColor="#ffffff"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/text_view_question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="45dp"
+                android:background="#66FFFFFF"
+                android:fontFamily="@font/droid_sans"
+                android:freezesText="true"
+                android:text="Here will be the question text"
+                android:textAlignment="center"
+                android:textColor="#0006FF"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/answer_options"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="60dp"
+                android:gravity="start">
+
+                <RadioButton
+                    android:id="@+id/option1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#80FFFFFF"
+                    android:fontFamily="@font/source_sans_pro_semibold"
+                    android:freezesText="true"
+                    android:gravity="start|center_vertical"
+                    android:text="Option 1"
+                    android:textColor="#0006FF"
+                    android:textSize="30sp"
+                    tools:layout_height="wrap_content" />
+
+                <RadioButton
+                    android:id="@+id/option2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#80FFFFFF"
+                    android:fontFamily="@font/source_sans_pro_semibold"
+                    android:freezesText="true"
+                    android:gravity="start|center_vertical"
+                    android:text="Option 2"
+                    android:textColor="#0006FF"
+                    android:textSize="30sp"
+                    tools:layout_height="wrap_content" />
+
+                <RadioButton
+                    android:id="@+id/option3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#80FFFFFF"
+                    android:fontFamily="@font/source_sans_pro_semibold"
+                    android:freezesText="true"
+                    android:gravity="start|center_vertical"
+                    android:text="Option 3"
+                    android:textColor="#0006FF"
+                    android:textSize="30sp"
+                    tools:layout_height="wrap_content" />
+            </RadioGroup>
+
+            <LinearLayout
+                style="?android:attr/buttonBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="bottom|center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button_back"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#FF0000"
+                    android:freezesText="true"
+                    android:minWidth="150dp"
+                    android:minHeight="70dp"
+                    android:text="@string/backButtonString"
+                    android:textSize="26sp" />
+
+                <Button
+                    android:id="@+id/button_next"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="80dp"
+                    android:background="#08DC08"
+                    android:freezesText="true"
+                    android:minWidth="150dp"
+                    android:minHeight="70dp"
+                    android:text="@string/nextButtonString"
+                    android:textSize="26sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

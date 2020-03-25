@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/bg_register"
+    android:background="@color/bg_login"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -13,19 +13,42 @@
         android:layout_gravity="center"
         android:orientation="vertical"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp" >
+        android:paddingRight="20dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="25dp"
+            android:contentDescription="@string/ayur_logo"
+            android:src="@drawable/ayurmanaha_transparent_logo" />
 
         <EditText
             android:id="@+id/name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:background="@color/input_register_bg"
+            android:background="@color/input_login_bg"
             android:hint="@string/hint_name"
-            android:padding="10dp"
-            android:singleLine="true"
+            android:importantForAutofill="no"
             android:inputType="textCapWords"
-            android:textColor="@color/input_register"
+            android:padding="6dp"
+            android:singleLine="true"
+            android:textColor="@color/input_login"
+            android:textColorHint="@color/input_register_hint" />
+
+        <EditText
+            android:id="@+id/phno_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@color/input_login_bg"
+            android:hint="@string/hint_phno"
+            android:importantForAutofill="no"
+            android:inputType="number|text|phone"
+            android:padding="6dp"
+            android:singleLine="true"
+            android:textColor="@color/input_login"
             android:textColorHint="@color/input_register_hint" />
 
         <EditText
@@ -33,12 +56,13 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:background="@color/input_register_bg"
+            android:background="@color/input_login_bg"
             android:hint="@string/hint_email"
+            android:importantForAutofill="no"
             android:inputType="textEmailAddress"
-            android:padding="10dp"
+            android:padding="6dp"
             android:singleLine="true"
-            android:textColor="@color/input_register"
+            android:textColor="@color/input_login"
             android:textColorHint="@color/input_register_hint" />
 
         <EditText
@@ -46,12 +70,13 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:background="@color/input_register_bg"
+            android:background="@color/input_login_bg"
             android:hint="@string/passwordStr"
+            android:importantForAutofill="no"
             android:inputType="textPassword"
-            android:padding="10dp"
+            android:padding="6dp"
             android:singleLine="true"
-            android:textColor="@color/input_register"
+            android:textColor="@color/input_login"
             android:textColorHint="@color/input_register_hint" />
 
         <!-- Login Button -->
@@ -60,22 +85,34 @@
             android:id="@+id/btnRegister"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="#ea4c88"
+            android:layout_marginTop="10dip"
+            android:background="#66C719"
+            android:minHeight="45dp"
             android:text="@string/btn_register"
             android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tAndC_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/tAndC" />
 
         <!-- Link to Login Screen -->
 
         <Button
             android:id="@+id/btnLinkToLoginScreen"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dip"
+            android:layout_gravity="center"
+            android:layout_marginTop="13dip"
             android:background="@null"
+            android:minHeight="15dp"
             android:text="@string/btn_link_to_login"
             android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:textColor="@color/lbl_color"
             android:textSize="15sp" />
     </LinearLayout>
 

@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.android.volley.Request.Method;
@@ -38,6 +42,14 @@ public class LoginActivity extends Activity {
         inputPassword = findViewById(R.id.password);
         Button btnLogin = findViewById(R.id.btnLogin);
         Button btnLinkToRegister = findViewById(R.id.btnLinkToRegisterScreen);
+        CheckBox pwd_toggle = findViewById(R.id.pwd_toggle_chb);
+        pwd_toggle.setOnCheckedChangeListener((CompoundButton compoundButton, boolean isChecked) -> {
+                if (isChecked) {
+                    inputPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else {
+                    inputPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+        });
 
         // Progress dialog
         pDialog = new ProgressDialog(this);
@@ -110,11 +122,9 @@ public class LoginActivity extends Activity {
 
                         JSONObject user = jObj.getJSONObject("user");
                         String name = user.getString("name");
-                        //String email = user.getString("email");
-                        //String created_at = user.getString("created_at");
+                        String phno = user.getString("phone");
+                        Log.i(TAG,"Phone no: "+phno);
 
-                        // Inserting row in users table
-                        //db.addUser(name, email, uid, created_at);
                         session.setUserID(uid);
                         session.setUserName(name);
 

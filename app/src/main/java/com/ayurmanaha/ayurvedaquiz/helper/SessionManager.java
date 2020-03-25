@@ -17,9 +17,10 @@ public class SessionManager {
 
 	// Shared preferences file name
 	private static final String PREF_NAME = "com.ayurmanaha.ayurvedaquiz";
+	private static final String KEY_IS_QUIZ_FINISHED = "isQuizFinished";
 	private static final String KEY_CURRENT_USER_ID = "keyCurrentUserID";
 	private static final String KEY_CURRENT_USER_NAME = "keyCurrentUserName";
-	private static final String KEY_QUESTION_COUNT = "keyQuestionCount";
+	private static final String KEY_CURRENT_QUESTION_NO = "keyCurrentQuestionNo";
 	private static final String KEY_SELECTED_OPTION = "keySelectedOption";
 	private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
 	private static final String KEY_IS_QUIZ_STARTED = "isQuizStarted";
@@ -35,6 +36,13 @@ public class SessionManager {
 		editor.putBoolean(KEY_IS_LOGGED_IN, isLoggedIn);
 		editor.apply();
 		Log.d(TAG, "User login session modified!");
+	}
+
+	public void setQuizFinished(boolean quizFinished)
+	{
+		editor.putBoolean(KEY_IS_QUIZ_FINISHED, quizFinished);
+		editor.apply();
+		Log.d(TAG, "Quiz completed!");
 	}
 
 	public void setQuizStarted(boolean isQuizStarted)
@@ -56,8 +64,8 @@ public class SessionManager {
 		Log.d(TAG, "Current User Name: "+userName);
 	}
 
-	public void setQuestionCount(int qNo) {
-		editor.putInt(KEY_QUESTION_COUNT, qNo);
+	public void setCurrentQuestionNo(int qNo) {
+		editor.putInt(KEY_CURRENT_QUESTION_NO, qNo);
 		editor.apply();
 		Log.d(TAG, "Quiz resumed/stopped at question number "+(qNo+1));
 	}
@@ -73,20 +81,22 @@ public class SessionManager {
 
 	public boolean isQuizStarted() {return pref.getBoolean(KEY_IS_QUIZ_STARTED,false);}
 
+	public boolean isQuizFinished() {return pref.getBoolean(KEY_IS_QUIZ_FINISHED,false);}
+
 	public String getUserID() {return pref.getString(KEY_CURRENT_USER_ID,null);}
 
 	public String getUserName() {return pref.getString(KEY_CURRENT_USER_NAME,null);}
 
-	public int getQuestionCount() {return pref.getInt(KEY_QUESTION_COUNT,0);}
+	public int getCurrentQuestionNo() {return pref.getInt(KEY_CURRENT_QUESTION_NO,0);}
 
 	public int getSelectedOption() {return pref.getInt(KEY_SELECTED_OPTION,-1);}
 
 	public void clearQuizSession()
 	{
-		editor.remove(KEY_QUESTION_COUNT);
+		editor.remove(KEY_CURRENT_QUESTION_NO);
 		editor.remove(KEY_SELECTED_OPTION);
 		editor.apply();
-		Log.d(TAG, "Quiz session shared preferences cleared.");
+		Log.d(TAG, "Quiz session shared preferences cleared. Curr question: "+pref.getInt(KEY_CURRENT_QUESTION_NO,0));
 	}
 
 	public void clearUserSession()

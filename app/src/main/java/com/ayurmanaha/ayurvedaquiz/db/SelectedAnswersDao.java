@@ -13,7 +13,7 @@ public interface SelectedAnswersDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(SelectedAnswers selectedAnswers);
 
-    @Query("SELECT selectedAns FROM selected_answers WHERE userid=:uID and questionID=:qID")
+    @Query("SELECT IFNULL((SELECT selectedAns from selected_answers WHERE userid=:uID and questionID=:qID),-1)")
     Integer getSelectedAnswer(String uID, int qID);
 
     @Query("SELECT selectedAns FROM selected_answers WHERE userid=:uID")
